@@ -96,5 +96,17 @@ And("I am redirected to homepage with url {string}", (url)=>{
   cy.url().should('eq', url)
 })
 
+When("I enter yesterday's date in the date input", ()=>{
+  AppointmentPage.fillDateInput("yesterday")
+})
+
+And("I click Book Appointment button", ()=>{
+  AppointmentPage.clickbookAppointmentBtn()
+})
+
+Then("I stay on the page with url {string}", (url)=>{
+  cy.url().should('eq', url)
+})
+
 
 

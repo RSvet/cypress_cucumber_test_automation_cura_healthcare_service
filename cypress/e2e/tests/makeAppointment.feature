@@ -26,5 +26,10 @@ Feature: Make an appointment
             Then I click Go to Homepage button
             And I am redirected to homepage with url "https://katalon-demo-cura.herokuapp.com/"
 
+         Scenario: User can't make an appointment for the date in the past
+            When I enter yesterday's date in the date input
+            And I click Book Appointment button
+            Then I stay on the page with url "https://katalon-demo-cura.herokuapp.com/"
+
 
       
