@@ -23,6 +23,10 @@ class AppointmentPage {
     return cy.get('#combo_facility')
   }
 
+  checkHospitalReadmissionCheckbox(){
+    cy.get("input[name='hospital_readmission']").check()
+  }
+
   radioButtons(){
     return cy.get("input[type='radio']")
   }
@@ -50,6 +54,10 @@ class AppointmentPage {
     selectHealthcaraProgram(program){
       this.radioButtons().check(program)
     }
+
+    typeComment(comment){
+        cy.get("#txt_comment").type(comment, {force: true})
+     }
   
   pickDate(when){    
     let currentDate = new Date()

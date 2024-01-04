@@ -14,7 +14,6 @@ Before(()=>{
   })
 })
 
-
 Given("I am on a page with url {string}", (url)=>{
   cy.visit(url)
 })
@@ -100,4 +99,61 @@ Then("I am redirected to the page with url {string}", (url)=>{
 
 And("Appointment information are present on history page", ()=>{
   HistoryPage.checkIsAppointmentInformationPresent()
+})
+
+When("I fill appointment data",()=>{
+  AppointmentPage.selectFacility(apptData.facility)
+  if(apptData.hospitalReadmission === 'Yes'){
+    AppointmentPage.checkHospitalReadmissionCheckbox()
+  }
+  AppointmentPage.selectHealthcaraProgram(apptData.healthcareProgram)
+  AppointmentPage.fillDateInput("tomorrow")
+  if(apptData.comment !== "")
+  AppointmentPage.typeComment(apptData.comment)
+})
+
+And("I click Book Appointment button", ()=>{
+  AppointmentPage.clickbookAppointmentBtn()
+})
+
+Then("I am redirected to summary page with url {string}", (url)=>{
+  cy.url().should('eq', url)
+})
+
+When("I click on the hamburger button on the right side of the page", ()=>{
+  SideNavPage.clickHamburgerBtn()
+})
+
+And("I click on the history link from side menu", ()=>{
+  SideNavPage.clickSideMenuLink('History')
+})
+
+Then("I am redirected to the page with url {string}", (url)=>{
+  cy.url().should('eq', url)
+})
+
+And("Information about appointment on history page is the same as user provided",()=>{
+  HistoryPage.checkDateInformation(AppointmentPage.pickDate('tomorrow'))
+  HistoryPage.checkFacilityInformation(apptData.facility)
+  HistoryPage.checkHealthCareProgramInformation(apptData.healthcareProgram)
+  HistoryPage.checkHospitalReadmissionInformation(apptData.hospitalReadmission)  
+  HistoryPage.checkComment(apptData.comment)
+ 
+})
+
+Then("I click on the hamburger button on the right side of the page", ()=>{
+  SideNavPage.clickHamburgerBtn()
+})
+
+Then("Side navigation menu appears from the right with {string} link present", (linkText)=>{
+  SideNavPage.checkSideMenuAppears()
+  SideNavPage.checkSideMenuLink(linkText)
+})
+
+And("I click on the logout link", ()=>{
+  SideNavPage.clickSideMenuLink('Logout')
+})
+
+Then("I am logged out and on the page with url {string}", (url)=>{
+  cy.url().should('eq', url) 
 })

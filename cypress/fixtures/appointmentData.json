@@ -1,4 +1,7 @@
 {
   "facility": "Hongkong CURA Healthcare Center",
-  "healthcareProgram":"Medicaid"
+  "healthcareProgram":"Medicaid",
+  "hospitalReadmission":"Yes",
+  "comment": "example comment"
+
 }
