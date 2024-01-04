@@ -2,6 +2,7 @@ import {Before, Given, When, Then, And} from "cypress-cucumber-preprocessor/step
 import SideNavPage from "../../../pages/SideNavPage";
 import LoginPage from "../../../pages/LoginPage";
 import AppointmentPage from "../../../pages/AppointmentPage";
+import SummaryPage from "../../../pages/SummaryPage";
 let userData;
 
 Before(()=>{
@@ -53,6 +54,47 @@ Then("I stay on the page with url {string}", (url)=>{
 
 And("Warning pop up shows message {string} below date field", (message)=>{
   AppointmentPage.checkWarningPopUpMessage(message)
-
 })
+
+When("I enter tomorrow's date in the date input", ()=>{
+  AppointmentPage.fillDateInput('tomorrow')  
+})
+
+And("I verify if first facility is selected", ()=>{
+  AppointmentPage.checkIfFirstFacilityIsSelected()
+})
+
+And("I verify if first healthcare program is checked", ()=>{
+  AppointmentPage.checkIfFirstRadioBtnIsSelected()
+})
+
+And("I click Book Appointment button", ()=>{
+  AppointmentPage.clickbookAppointmentBtn()
+})
+
+Then("I am redirected to the summary page with url {string}", (url)=>{
+  cy.url().should('eq', url)
+})
+
+And ("There is title {string} on the page", (title)=>{
+  SummaryPage.checkPageTitle(title)
+  console.log(AppointmentPage.firstFacility)
+  console.log(AppointmentPage.firstHealthCareProgram)
+})
+
+And("All appointment data is correct", ()=>{
+  SummaryPage.checkFacilityData(AppointmentPage.firstFacility)
+  SummaryPage.checkHealthCareData(AppointmentPage.firstHealthCareProgram)
+  SummaryPage.checkVisitDate(AppointmentPage.pickDate('tomorrow'))
+})
+
+Then("I click Go to Homepage button", ()=>{
+  SummaryPage.clickGoToHomePageBtn()
+})
+
+And("I am redirected to homepage with url {string}", (url)=>{
+  cy.url().should('eq', url)
+})
+
+
 
