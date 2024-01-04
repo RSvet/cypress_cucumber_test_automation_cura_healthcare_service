@@ -11,3 +11,15 @@ Feature: User login
         When I click Login button
         Then Error message appears with text 'Login failed! Please ensure the username and password are valid.'
         And User is on the page with url 'https://katalon-demo-cura.herokuapp.com/profile.php#login'
+
+   Scenario Outline: User did not login with wrong username or wrong password
+        When I enter username "<username>" in username field
+        And I enter password "<password>" in password field
+        And I click Login button
+        Then Error message appears with text 'Login failed! Please ensure the username and password are valid.'
+        And User is on the page with url 'https://katalon-demo-cura.herokuapp.com/profile.php#login'
+
+        Examples:
+            | username | password |
+            | Wrong username | ThisIsNotAPassword |
+            | John Doe | WrongPassword |

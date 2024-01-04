@@ -41,3 +41,23 @@ Then("Error message appears with text {string}", (errorMessage)=>{
 And("User is on the page with url {string}", (url)=>{
   cy.url().should('eq', url)
 })
+
+When("I enter username {string} in username field", (username)=>{
+  LoginPage.fillUsername(username)
+})
+
+And("I enter password {string} in password field", (password)=>{
+  LoginPage.fillPassword(password)
+})
+
+And("I click Login button", ()=>{
+  LoginPage.clickLoginBtn()
+})
+
+Then("Error message appears with text {string}", (errorMessage)=>{
+  LoginPage.checkIfErrorMsgExists(errorMessage)
+})
+
+And("User is on the page with url {string}", (url)=>{
+  cy.url().should('eq', url)
+})
