@@ -23,3 +23,13 @@ Feature: User login
             | username | password |
             | Wrong username | ThisIsNotAPassword |
             | John Doe | WrongPassword |
+
+    Scenario: User logs in with valid credentials
+        When I enter correct username in username field
+        And I enter correct password in password field
+        And I click Login button
+        Then I am redirected to the page with url "https://katalon-demo-cura.herokuapp.com/#appointment"
+        And I click on the hamburger button on the right side of the page
+        Then Side navigation menu appears from the right with "Logout" link present
+        And I click on the logout link
+        Then I am logged out and on the page with url "https://katalon-demo-cura.herokuapp.com/"

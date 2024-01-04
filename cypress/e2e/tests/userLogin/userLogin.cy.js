@@ -61,3 +61,36 @@ Then("Error message appears with text {string}", (errorMessage)=>{
 And("User is on the page with url {string}", (url)=>{
   cy.url().should('eq', url)
 })
+
+When("I enter correct username in username field", ()=>{
+  LoginPage.fillUsername(userData.correctUsername)
+})
+
+And("I enter correct password in password field", ()=>{
+  LoginPage.fillPassword(userData.correctPassword)
+})
+
+And("I click Login button", ()=>{
+  LoginPage.clickLoginBtn()
+})
+
+Then("I am redirected to the page with url {string}", (url)=>{
+  cy.url().should('eq', url)
+})
+
+And("I click on the hamburger button on the right side of the page", ()=>{
+  SideNavPage.clickHamburgerBtn()
+})
+
+Then("Side navigation menu appears from the right with {string} link present", (linkText)=>{
+  SideNavPage.checkSideMenuAppears()
+  SideNavPage.checkSideMenuLink(linkText)
+})
+
+And("I click on the logout link", ()=>{
+  SideNavPage.clickSideMenuLink('Logout')
+})
+
+Then("I am logged out and on the page with url {string}", (url)=>{
+  cy.url().should('eq', url) 
+})
