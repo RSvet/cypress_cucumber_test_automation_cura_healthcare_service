@@ -42,6 +42,14 @@ class AppointmentPage {
       })   
     
     }   
+
+    selectFacility(facility){
+      this.facilityInput().select(facility)
+    }
+
+    selectHealthcaraProgram(program){
+      this.radioButtons().check(program)
+    }
   
   pickDate(when){    
     let currentDate = new Date()

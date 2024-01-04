@@ -9,6 +9,7 @@ Before(()=>{
   cy.fixture('userData').then(data=>{   
     userData = data;   
   })
+ 
 })
 
 Given("I am on a page with url {string}", (url)=>{
