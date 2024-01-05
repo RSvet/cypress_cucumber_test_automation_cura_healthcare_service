@@ -5,6 +5,7 @@ import HistoryPage from "../../../pages/HistoryPage";
 import AppointmentPage from "../../../pages/AppointmentPage";
 let userData; 
 let apptData;
+let page;
 Before(()=>{
   cy.fixture('userData').then(data=>{   
     userData = data;   
@@ -12,10 +13,13 @@ Before(()=>{
   cy.fixture('appointmentData').then(data=>{
     apptData = data
   })
+  cy.fixture('urlData').then(data=>{   
+    page = data;   
+  })
 })
 
-Given("I am on a page with url {string}", (url)=>{
-  cy.visit(url)
+Given("I am on a home page", ()=>{
+  cy.visit(page.baseUrl)
 })
 
 When("I click on the hamburger button on the right side of the page", ()=>{
@@ -30,8 +34,8 @@ And("I click on the Login button from the side menu", ()=>{
   SideNavPage.clickSideMenuLink('Login')
 })
 
-Then("I am redirected to the login page with url {string}", (url)=>{
-  cy.url().should('eq', url) 
+Then("I am redirected to the login page", ()=>{
+  cy.url().should('eq', page.baseUrl+page.loginUrl) 
 })
 
 When("I enter correct username and password", ()=>{
@@ -43,8 +47,8 @@ And("I click Login button", ()=>{
   LoginPage.clickLoginBtn()
 })
 
-Then("I am redirected to the page with url {string}", (url)=>{
-  cy.url().should('eq', url)
+Then("I am redirected to the appointment page", ()=>{
+  cy.url().should('eq', page.baseUrl+page.appointmentUrl)
 })
 
 When("I click on the hamburger button on the right side of the page", ()=>{
@@ -59,8 +63,8 @@ And("I click on the history link from side menu", ()=>{
   SideNavPage.clickSideMenuLink('History')
 })
 
-Then("I am redirected to the page with url {string}", (url)=>{
-  cy.url().should('eq', url)
+Then("I am redirected to the history page", ()=>{
+  cy.url().should('eq', page.baseUrl+page.historyUrl)
 })
 
 And ("Text {string} is present on the page", (text)=>{
@@ -77,8 +81,8 @@ And("I click Book Appointment button", ()=>{
   AppointmentPage.clickbookAppointmentBtn()
 })
 
-Then("I am redirected to summary page with url {string}", (url)=>{
-  cy.url().should('eq', url)
+Then("I am redirected to summary page", ()=>{
+  cy.url().should('eq', page.baseUrl+page.summaryUrl)
 })
 
 When("I click on the hamburger button on the right side of the page", ()=>{
@@ -93,8 +97,8 @@ And("I click on the history link from side menu", ()=>{
   SideNavPage.clickSideMenuLink('History')
 })
 
-Then("I am redirected to the page with url {string}", (url)=>{
-  cy.url().should('eq', url)
+Then("I am redirected to the history page", ()=>{
+  cy.url().should('eq', page.baseUrl+page.historyUrl)
 })
 
 And("Appointment information are present on history page", ()=>{
@@ -116,8 +120,8 @@ And("I click Book Appointment button", ()=>{
   AppointmentPage.clickbookAppointmentBtn()
 })
 
-Then("I am redirected to summary page with url {string}", (url)=>{
-  cy.url().should('eq', url)
+Then("I am redirected to summary page", ()=>{
+  cy.url().should('eq', page.baseUrl+page.summaryUrl)
 })
 
 When("I click on the hamburger button on the right side of the page", ()=>{
@@ -128,8 +132,8 @@ And("I click on the history link from side menu", ()=>{
   SideNavPage.clickSideMenuLink('History')
 })
 
-Then("I am redirected to the page with url {string}", (url)=>{
-  cy.url().should('eq', url)
+Then("I am redirected to the history page", (url)=>{
+  cy.url().should('eq', page.baseUrl+page.historyUrl)
 })
 
 And("Information about appointment on history page is the same as user provided",()=>{
@@ -154,6 +158,6 @@ And("I click on the logout link", ()=>{
   SideNavPage.clickSideMenuLink('Logout')
 })
 
-Then("I am logged out and on the page with url {string}", (url)=>{
-  cy.url().should('eq', url) 
+Then("I am logged out and on the home page", ()=>{
+  cy.url().should('eq', page.baseUrl) 
 })

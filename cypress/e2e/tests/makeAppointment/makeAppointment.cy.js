@@ -4,16 +4,19 @@ import LoginPage from "../../../pages/LoginPage";
 import AppointmentPage from "../../../pages/AppointmentPage";
 import SummaryPage from "../../../pages/SummaryPage";
 let userData;
-
+let page;
 Before(()=>{
   cy.fixture('userData').then(data=>{   
     userData = data;   
   })
+  cy.fixture('urlData').then(data=>{   
+    page = data;   
+  })
  
 })
 
-Given("I am on a page with url {string}", (url)=>{
-  cy.visit(url)
+Given("I am on a home page", ()=>{
+  cy.visit(page.baseUrl)
 })
 
 When("I click on the hamburger button on the right side of the page", ()=>{
@@ -28,8 +31,8 @@ And("I click on the Login button from the side menu", ()=>{
   SideNavPage.clickSideMenuLink('Login')
 })
 
-Then("I am redirected to the login page with url {string}", (url)=>{
-  cy.url().should('eq', url) 
+Then("I am redirected to the login page", ()=>{
+  cy.url().should('eq', page.baseUrl+page.loginUrl) 
 })
 
 When("I enter correct username and password", ()=>{
@@ -41,16 +44,16 @@ And("I click Login button", ()=>{
   LoginPage.clickLoginBtn()
 })
 
-Then("I am redirected to the page with url {string}", (url)=>{
-  cy.url().should('eq', url)
+Then("I am redirected to the appointment page", ()=>{
+  cy.url().should('eq', page.baseUrl+page.appointmentUrl)
 })
 
 When ("I click Book Appointment button", ()=>{
   AppointmentPage.clickbookAppointmentBtn()
 })
 
-Then("I stay on the page with url {string}", (url)=>{
-  cy.url().should('eq', url)
+Then("I stay on the appointment page", ()=>{
+  cy.url().should('eq', page.baseUrl+page.appointmentUrl)
 })
 
 And("Warning pop up shows message {string} below date field", (message)=>{
@@ -73,8 +76,8 @@ And("I click Book Appointment button", ()=>{
   AppointmentPage.clickbookAppointmentBtn()
 })
 
-Then("I am redirected to the summary page with url {string}", (url)=>{
-  cy.url().should('eq', url)
+Then("I am redirected to the summary page", ()=>{
+  cy.url().should('eq', page.baseUrl+page.summaryUrl)
 })
 
 And ("There is title {string} on the page", (title)=>{
@@ -93,8 +96,8 @@ Then("I click Go to Homepage button", ()=>{
   SummaryPage.clickGoToHomePageBtn()
 })
 
-And("I am redirected to homepage with url {string}", (url)=>{
-  cy.url().should('eq', url)
+And("I am redirected to homepage", ()=>{
+  cy.url().should('eq', page.baseUrl)
 })
 
 When("I enter yesterday's date in the date input", ()=>{
@@ -105,8 +108,8 @@ And("I click Book Appointment button", ()=>{
   AppointmentPage.clickbookAppointmentBtn()
 })
 
-Then("I stay on the page with url {string}", (url)=>{
-  cy.url().should('eq', url)
+Then("I stay on the home page", ()=>{
+  cy.url().should('eq', page.baseUrl)
 })
 
 

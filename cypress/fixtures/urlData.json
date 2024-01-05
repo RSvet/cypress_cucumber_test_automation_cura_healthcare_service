@@ -1,0 +1,8 @@
+{
+  "baseUrl":"https://katalon-demo-cura.herokuapp.com/",
+  "loginUrl":"profile.php#login",
+  "appointmentUrl":"#appointment",
+  "summaryUrl":"appointment.php#summary",
+  "historyUrl":"history.php#history"
+
+}

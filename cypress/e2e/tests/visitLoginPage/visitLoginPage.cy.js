@@ -1,17 +1,23 @@
-import {Given, When, Then} from "cypress-cucumber-preprocessor/steps";
+import {Before, Given, When, Then} from "cypress-cucumber-preprocessor/steps";
 import HomePage from "../../../pages/HomePage";
 import SideNavPage from "../../../pages/SideNavPage";
+let page;
+Before(()=>{
+  cy.fixture('urlData').then(data=>{   
+    page = data;   
+  })
+})
 
-Given("I am on a page with url {string}", (url)=>{
-  cy.visit(url)
+Given("I am on a home page", ()=>{
+  cy.visit(page.baseUrl)
 })
 
 When("I click on the Make Appointment button on the home page", ()=>{
   HomePage.clickMakeAnAppointmentBtn()
 })
 
-Then("I am redirected to the login page with url {string}", (url)=>{
-  cy.url().should('eq', url) 
+Then("I am redirected to the login page", ()=>{
+  cy.url().should('eq', page.baseUrl+page.loginUrl) 
 })
 
 
@@ -27,6 +33,6 @@ And("I click on the Login button from the side menu", ()=>{
   SideNavPage.clickSideMenuLink('Login')
 })
 
-Then("I am redirected to the login page with url {string}", (url)=>{
-  cy.url().should('eq', url) 
+Then("I am redirected to the login page", ()=>{
+  cy.url().should('eq', page.baseUrl+page.loginUrl) 
 })

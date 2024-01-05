@@ -3,15 +3,19 @@ import SideNavPage from "../../../pages/SideNavPage";
 import LoginPage from "../../../pages/LoginPage";
 
 let userData;
+let page;
 
 Before(()=>{
   cy.fixture('userData').then(data=>{   
     userData = data;   
   })
+  cy.fixture('urlData').then(data=>{   
+    page = data;   
+  })
 })
 
-Given("I am on a page with url {string}", (url)=>{
-  cy.visit(url)
+Given("I am on a home page", ()=>{
+  cy.visit(page.baseUrl)
 })
 
 When("I click on the hamburger button on the right side of the page", ()=>{
@@ -26,8 +30,8 @@ And("I click on the Login button from the side menu", ()=>{
   SideNavPage.clickSideMenuLink('Login')
 })
 
-Then("I am redirected to the login page with url {string}", (url)=>{
-  cy.url().should('eq', url) 
+Then("I am redirected to the login page", ()=>{
+  cy.url().should('eq', page.baseUrl+page.loginUrl) 
 })
 
 When("I click Login button", ()=>{
@@ -38,8 +42,8 @@ Then("Error message appears with text {string}", (errorMessage)=>{
   LoginPage.checkIfErrorMsgExists(errorMessage)
 })
 
-And("User is on the page with url {string}", (url)=>{
-  cy.url().should('eq', url)
+And("I am still on the login page", ()=>{
+  cy.url().should('eq', page.baseUrl+page.loginUrl)
 })
 
 When("I enter username {string} in username field", (username)=>{
@@ -58,8 +62,8 @@ Then("Error message appears with text {string}", (errorMessage)=>{
   LoginPage.checkIfErrorMsgExists(errorMessage)
 })
 
-And("User is on the page with url {string}", (url)=>{
-  cy.url().should('eq', url)
+And("I am on the login page", ()=>{
+  cy.url().should('eq', page.baseUrl+page.loginUrl)
 })
 
 When("I enter correct username in username field", ()=>{
@@ -74,8 +78,8 @@ And("I click Login button", ()=>{
   LoginPage.clickLoginBtn()
 })
 
-Then("I am redirected to the page with url {string}", (url)=>{
-  cy.url().should('eq', url)
+Then("I am redirected to the appointment page", ()=>{
+  cy.url().should('eq', page.baseUrl+page.appointmentUrl)
 })
 
 And("I click on the hamburger button on the right side of the page", ()=>{
@@ -91,6 +95,6 @@ And("I click on the logout link", ()=>{
   SideNavPage.clickSideMenuLink('Logout')
 })
 
-Then("I am logged out and on the page with url {string}", (url)=>{
-  cy.url().should('eq', url) 
+Then("I am logged out and on the home page", ()=>{
+  cy.url().should('eq', page.baseUrl) 
 })
